@@ -1,3 +1,5 @@
+import { uid } from "uid";
+
 export function Form(onAddActivity) {
   const handleSubmit = (e) => {
     e.preventDefault();
