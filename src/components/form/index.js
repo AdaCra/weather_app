@@ -1,5 +1,3 @@
-import App from "../../App";
-
 //this is the form index js.
 // Needs a form component that contains: a heading, two inputs, a submit field, receives a prop called onAddActivity
 //handle the submit event -? extract an object with the keys NAME and 'IS GOOD FOR WEATHER'
@@ -26,6 +24,8 @@ export function Form({ onAddActivity }) {
 
     onAddActivity(data);
   };
+
+
 
   return (
     <>

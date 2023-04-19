@@ -12,6 +12,7 @@ import useLocalStorage from "use-local-storage-state";
 function App() {
   const [weather, setWeather] = useState(true);
 
+  // FETCH WEATHER
   async function FetchWeather() {
     const URL = "https://example-apis.vercel.app/api/weather/";
     const response = await fetch(URL);
@@ -25,17 +26,20 @@ function App() {
   });
 
   const [activities, setActivities] = useLocalStorage("activity-list", {
-    defaultValue: [{ name: "go read a book" }],
+    defaultValue: [{ name: "Go Read A Book", id: 0, isForGoodWeather: true }],
   });
+
+  // CREATE ACTIVITY
   const handleAddActivity = (newActivity) => {
-    if (activities[0].name === undefined) {
+    if (activities[0].id === 0) {
       setActivities([newActivity]);
     } else {
       setActivities([...activities, newActivity]);
     }
   };
-  let goodWeather = [];
 
+  // FILTER BY WEATHER
+  let goodWeather = [];
   if (weather === true) {
     goodWeather = activities.filter(
       (activity) => activity.isForGoodWeather === true
@@ -44,11 +48,23 @@ function App() {
     goodWeather = activities.filter((activity) => !activity.isForGoodWeather);
   }
 
+  // DELETE ACTIVITY
+  const handleDeleteActivity = (deletedActivityID) => {
+    console.log(deletedActivityID);
+    setActivities(activities.filter((activity)=> activity.id !== deletedActivityID))
+  };
+
   return (
     <>
       {console.log(activities)}
       <Form onAddActivity={handleAddActivity} />
-      {<List activities={goodWeather} weather={weather} />}
+      {
+        <List
+          activities={goodWeather}
+          weather={weather}
+          onDeleteActivity={handleDeleteActivity}
+        />
+      }
     </>
   );
 }
