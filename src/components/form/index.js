@@ -1,4 +1,5 @@
 import { uid } from "uid";
+import App from "../../App";
 
 //this is the form index js.
 // Needs a form component that contains: a heading, two inputs, a submit field, receives a prop called onAddActivity
@@ -6,7 +7,7 @@ import { uid } from "uid";
 //onAddActivity to be called as a prop and PASS THE DATA OBJECT as an argument
 //then reset form
 
-export function Form(onAddActivity) {
+export function Form() {
   let data = "";
 
   const handleSubmit = (e) => {
@@ -16,12 +17,12 @@ export function Form(onAddActivity) {
     e.target.reset();
     e.target.elements.name.focus();
 
-    console.log(
-      data.name,
-      data.isForGoodWeather === "on" ? (data.isForGoodWeather = true) : false
-    );
+    // data.isForGoodWeather === "on" ? data.isForGoodWeather = true : false
+
     return data;
   };
+
+  onAddActivity(data);
 
   return (
     <>
