@@ -20,8 +20,6 @@ function App() {
     return () => clearInterval(interval);
   });
 
-  console.log(weatherEmoji);
-
   const [activities, setActivities] = useLocalStorage("activity-list", {
     defaultValue: [{ name: "go read a book" }],
   });
@@ -41,12 +39,14 @@ function App() {
   } else {
     goodWeather = activities.filter((activity) => !activity.isForGoodWeather);
   }
+  console.log(weatherEmoji);
 
   return (
     <>
+      <Header weatherEmoji={weatherEmoji} weather={weather} />
       {console.log(activities)}
       <Form onAddActivity={handleAddActivity} />
-      {<List activities={goodWeather} weather={weather} />}
+      {<List activities={goodWeather} />}
     </>
   );
 }
