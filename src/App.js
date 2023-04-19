@@ -10,7 +10,7 @@ import useLocalStorage from "use-local-storage-state";
 //passes handleAddActivity to the form component
 
 function App() {
-  const isForGoodWeather = true;
+  const isForGoodWeather = false;
 
   const [activities, setActivities] = useLocalStorage("activity-list", {
     defaultValue: [{ name: "go read a book" }],
@@ -36,7 +36,7 @@ function App() {
     <>
       {console.log(activities)}
       <Form onAddActivity={handleAddActivity} />
-      {<List activities={goodWeather} />}
+      {<List activities={goodWeather} weather={isForGoodWeather} />}
     </>
   );
 }
