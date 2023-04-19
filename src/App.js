@@ -14,11 +14,12 @@ function App() {
   const [weather, setWeather] = useState(true);
 
   useEffect(() => {
+    FetchWeather(weather, setWeather, weatherEmoji, setWeatherEmoji);
     const interval = setInterval(() => {
       FetchWeather(weather, setWeather, weatherEmoji, setWeatherEmoji);
-    }, 36000);
+    }, 300000);
     return () => clearInterval(interval);
-  });
+  }, []);
 
   const [activities, setActivities] = useLocalStorage("activity-list", {
     defaultValue: [{ name: "go read a book" }],
