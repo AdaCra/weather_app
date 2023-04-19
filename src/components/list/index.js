@@ -3,12 +3,28 @@
 //a headline based on whether weather is good or bad
 //a delete button -> onDeleteActivity -> pass id as an argument
 
-export const List = ({ activities }) => {
+import binImage from "../../img/recycleBin.png";
+
+export const List = ({ activities, onDeleteActivity }) => {
+
+
+
   return (
     <>
       <ul>
-        {activities.map((activity, index) => {
-          return <li key={index}>{activity.name}</li>;
+        {activities.map((activity) => {
+          return (
+            <li key={activity.id}>
+              {activity.name}
+              <button
+                onClick={() => {
+                  onDeleteActivity?.(activity.id);
+                }}
+              >
+                <img src={binImage} alt="Delete icon" />
+              </button>
+            </li>
+          );
         })}
       </ul>
     </>
