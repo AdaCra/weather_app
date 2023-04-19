@@ -3,11 +3,13 @@
 //a headline based on whether weather is good or bad
 //a delete button -> onDeleteActivity -> pass id as an argument
 
+import { uid } from "uid";
+
 export const List = ({ activities }) => {
   return (
     <ul>
-      {activities.map((activity, index) => {
-        return <li key={index}>{activity.name}</li>;
+      {activities.map((activity) => {
+        return <li key={uid(activity)}>{activity.name}</li>;
       })}
     </ul>
   );

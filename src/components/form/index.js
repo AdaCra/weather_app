@@ -1,4 +1,3 @@
-import { uid } from "uid";
 import App from "../../App";
 
 //this is the form index js.
@@ -7,6 +6,7 @@ import App from "../../App";
 //onAddActivity to be called as a prop and PASS THE DATA OBJECT as an argument
 //then reset form
 
+import { uid } from "uid";
 export function Form({ onAddActivity }) {
   let data = "";
 
@@ -16,8 +16,14 @@ export function Form({ onAddActivity }) {
     data = Object.fromEntries(formData);
     e.target.reset();
     e.target.elements.name.focus();
+    data.id = uid();
 
-    // data.isForGoodWeather === "on" ? data.isForGoodWeather = true : false
+    if (data.isForGoodWeather === "on") {
+      data.isForGoodWeather = true;
+    } else {
+      data.isForGoodWeather = false;
+    }
+
     onAddActivity(data);
   };
 
