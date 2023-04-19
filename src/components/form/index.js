@@ -7,7 +7,7 @@ import App from "../../App";
 //onAddActivity to be called as a prop and PASS THE DATA OBJECT as an argument
 //then reset form
 
-export function Form() {
+export function Form({ onAddActivity }) {
   let data = "";
 
   const handleSubmit = (e) => {
@@ -18,11 +18,8 @@ export function Form() {
     e.target.elements.name.focus();
 
     // data.isForGoodWeather === "on" ? data.isForGoodWeather = true : false
-
-    return data;
+    onAddActivity(data);
   };
-
-  onAddActivity(data);
 
   return (
     <>

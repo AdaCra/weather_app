@@ -8,17 +8,21 @@ import { List } from "./components/list";
 //passes handleAddActivity to the form component
 
 function App() {
-  const [activities, setActivities] = useState([]);
+  const [activities, setActivities] = useState([{ name: " " }]);
   const handleAddActivity = (newActivity) => {
-    setActivities(...(activities + newActivity));
+    if (activities[0].name === " ") {
+      setActivities([newActivity]);
+    } else {
+      setActivities([...activities, newActivity]);
+    }
     console.log(activities);
   };
 
   return (
     <>
-      {" "}
+      {console.log(activities)}
       <Form onAddActivity={handleAddActivity} />
-      {/* <List /> */}
+      {<List activities={activities} />}
     </>
   );
 }
