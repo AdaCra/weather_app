@@ -1,6 +1,4 @@
 export function Header(weatherEmoji, weather) {
-  console.log(weatherEmoji);
-
   return (
     <>
       <h1>

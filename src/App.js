@@ -12,14 +12,24 @@ import useLocalStorage from "use-local-storage-state";
 function App() {
   const [weatherEmoji, setWeatherEmoji] = useState({});
   const [weather, setWeather] = useState(true);
+  const [weatherData, setweatherData] = useState({});
+
+  async function FetchWeather(weatherData) {
+    const URL = "https://example-apis.vercel.app/api/weather/";
+    const response = await fetch(URL);
+    weatherData = await response.json();
+    setweatherData(weatherData);
+  }
 
   useEffect(() => {
-    FetchWeather(weather, setWeather, weatherEmoji, setWeatherEmoji);
+    FetchWeather(weatherData);
     const interval = setInterval(() => {
-      FetchWeather(weather, setWeather, weatherEmoji, setWeatherEmoji);
-    }, 300000);
+      FetchWeather(weatherData);
+    }, 36000);
     return () => clearInterval(interval);
   }, []);
+
+  console.log(weatherData.isGoodWeather);
 
   const [activities, setActivities] = useLocalStorage("activity-list", {
     defaultValue: [{ name: "go read a book" }],
@@ -31,20 +41,19 @@ function App() {
       setActivities([...activities, newActivity]);
     }
   };
-  let goodWeather = [];
 
-  if (weather === true) {
+  let goodWeather = [];
+  if (weatherData.isGoodWeather === true) {
     goodWeather = activities.filter(
       (activity) => activity.isForGoodWeather === true
     );
   } else {
     goodWeather = activities.filter((activity) => !activity.isForGoodWeather);
   }
-  console.log(weatherEmoji);
 
   return (
     <>
-      <Header weatherEmoji={weatherEmoji} weather={weather} />
+      <Header weatherEmoji={weatherEmoji} weather={weatherData.isGoodWeather} />
       {console.log(activities)}
       <Form onAddActivity={handleAddActivity} />
       {<List activities={goodWeather} />}
