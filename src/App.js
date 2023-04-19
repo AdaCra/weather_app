@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { List } from "./components/list";
 import { Header } from "./components/header";
 import useLocalStorage from "use-local-storage-state";
+import { handleAddActivity, handleDeleteActivity } from "./handleActivities";
+import { fetchWeather } from "./fetchingData";
 
 // this is the APP.JS
 //needs: STATE for activities
@@ -13,7 +15,7 @@ function App() {
   // setting up weather Data, to then pass as component to everything
   const [weatherData, setweatherData] = useState({});
 
-  async function FetchWeather(weatherData) {
+  async function fetchWeather(weatherData) {
     const URL = "https://example-apis.vercel.app/api/weather/";
     const response = await fetch(URL);
     weatherData = await response.json();
@@ -22,23 +24,15 @@ function App() {
 
   //fetching the data here, once every 36000ms
   useEffect(() => {
-    FetchWeather(weatherData);
+    fetchWeather(weatherData);
     const interval = setInterval(() => {
-      FetchWeather(weatherData);
+      fetchWeather(weatherData);
     }, 36000);
     return () => clearInterval(interval);
   }, []);
 
   //console logging to check the accuracy
   console.log(weatherData);
-
-  //setting default values of activities AND activities state
-  const [activities, setActivities] = useLocalStorage("activity-list", {
-    defaultValue: [
-      { name: "Go Read A Book", id: 0, isForGoodWeather: true },
-      { name: "Go Read A Book", id: 1, isForGoodWeather: false },
-    ],
-  });
 
   //handle activity - function then passed to Form, will render activities
   const handleAddActivity = (newActivity) => {
@@ -56,6 +50,14 @@ function App() {
       activities.filter((activity) => activity.id !== deletedActivityID)
     );
   };
+
+  //setting default values of activities AND activities state
+  const [activities, setActivities] = useLocalStorage("activity-list", {
+    defaultValue: [
+      { name: "Go Read A Book", id: 0, isForGoodWeather: true },
+      { name: "Go Read A Book", id: 1, isForGoodWeather: false },
+    ],
+  });
 
   let filteredActivities = []; //honestly making an array cause it seems easier than putting a tenary in list.
   if (weatherData.isGoodWeather === true) {
