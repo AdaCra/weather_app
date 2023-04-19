@@ -1,9 +1,9 @@
-export function Header(weatherEmoji, weather) {
+export function Header(weatherData) {
   return (
     <>
       <h1>
-        {weatherEmoji.weatherEmoji.temperature} degrees Celcius
-        {weatherEmoji.weatherEmoji.condition}
+        {weatherData.temperature} degrees Celcius
+        {weatherData.condition}
       </h1>
     </>
   );

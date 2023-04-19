@@ -1,7 +1,7 @@
 import { Form } from "./components/form";
 import { useState, useEffect } from "react";
 import { List } from "./components/list";
-import { FetchWeather, Header } from "./components/fetchWeather";
+import { Header } from "./components/header";
 import useLocalStorage from "use-local-storage-state";
 
 // this is the APP.JS
@@ -10,8 +10,7 @@ import useLocalStorage from "use-local-storage-state";
 //passes handleAddActivity to the form component
 
 function App() {
-  const [weatherEmoji, setWeatherEmoji] = useState({});
-  const [weather, setWeather] = useState(true);
+  // setting up weather Data, to then pass as component to everything
   const [weatherData, setweatherData] = useState({});
 
   async function FetchWeather(weatherData) {
@@ -21,6 +20,7 @@ function App() {
     setweatherData(weatherData);
   }
 
+  //fetching the data here, once every 36000ms
   useEffect(() => {
     FetchWeather(weatherData);
     const interval = setInterval(() => {
@@ -29,11 +29,18 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  console.log(weatherData.isGoodWeather);
+  //console logging to check the accuracy
+  console.log(weatherData);
 
+  //setting default values of activities AND activities state
   const [activities, setActivities] = useLocalStorage("activity-list", {
-    defaultValue: [{ name: "go read a book" }],
+    defaultValue: [
+      { name: "Go Read A Book", id: 0, isForGoodWeather: true },
+      { name: "Go Read A Book", id: 1, isForGoodWeather: false },
+    ],
   });
+
+  //handle activity - function then passed to Form, will render activities
   const handleAddActivity = (newActivity) => {
     if (activities[0].name === undefined) {
       setActivities([newActivity]);
@@ -42,21 +49,37 @@ function App() {
     }
   };
 
-  let goodWeather = [];
+  //referenced in List, will deleta activities
+  const handleDeleteActivity = (deletedActivityID) => {
+    console.log(deletedActivityID);
+    setActivities(
+      activities.filter((activity) => activity.id !== deletedActivityID)
+    );
+  };
+
+  let filteredActivities = []; //honestly making an array cause it seems easier than putting a tenary in list.
   if (weatherData.isGoodWeather === true) {
-    goodWeather = activities.filter(
+    filteredActivities = activities.filter(
       (activity) => activity.isForGoodWeather === true
     );
   } else {
-    goodWeather = activities.filter((activity) => !activity.isForGoodWeather);
+    filteredActivities = activities.filter(
+      (activity) => !activity.isForGoodWeather
+    );
   }
 
   return (
     <>
-      <Header weatherEmoji={weatherEmoji} weather={weatherData.isGoodWeather} />
+      <Header weatherEmoji={weatherData} weather={weatherData} />
       {console.log(activities)}
       <Form onAddActivity={handleAddActivity} />
-      {<List activities={goodWeather} />}
+      {
+        <List
+          activities={filteredActivities}
+          weather={weatherData.isGoodWeather}
+          onDeleteActivity={handleDeleteActivity}
+        />
+      }
     </>
   );
 }
