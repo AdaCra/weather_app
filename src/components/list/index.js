@@ -3,7 +3,7 @@
 //a headline based on whether weather is good or bad
 //a delete button -> onDeleteActivity -> pass id as an argument
 import binImage from "../../img/recycleBin.png";
-
+git 
 export const List = ({ activities, weather, onDeleteActivity }) => {
   let headlineText = "headline";
   weather === true
