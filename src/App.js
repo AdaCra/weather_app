@@ -53,7 +53,7 @@ function App() {
   };
 
   return (
-    <>
+    <main>
       <Header weatherEmoji={weatherEmoji} weather={weather} />
       {console.log(activities)}
       <Form onAddActivity={handleAddActivity} />
@@ -61,12 +61,10 @@ function App() {
       {
         <List
           activities={goodWeather}
-          
           onDeleteActivity={handleDeleteActivity}
         />
       }
-
-    </>
+    </main>
   );
 }
 

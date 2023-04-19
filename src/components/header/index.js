@@ -7,12 +7,10 @@ export function Header(weatherEmoji, weather) {
   console.log(weatherEmoji);
 
   return (
-    <>
-      <h1>
-        {weatherEmoji.weatherEmoji.temperature} degrees Celcius
-        {weatherEmoji.weatherEmoji.condition}
-      </h1>
+    <header>
+      <h1>{weatherEmoji.weatherEmoji.temperature}°C</h1>
+      <h1>{weatherEmoji.weatherEmoji.condition}</h1>
       <h2>{headlineText}</h2>
-    </>
+    </header>
   );
 }

@@ -25,14 +25,18 @@ export function Form({ onAddActivity }) {
     onAddActivity(data);
   };
 
-
-
   return (
     <>
       <form className="form__activity-form" onSubmit={handleSubmit}>
         <legend>Add new Activity!</legend>
-        <label htmlFor="name">Anything</label>
-        <input type="text" id="Activity" name="name" required />
+        <label htmlFor="name">Add activity to list</label>
+        <input
+          type="text"
+          id="Activity"
+          name="name"
+          required
+          placeholder="Swim in the Sea"
+        />
         <label htmlFor="isForGoodWeather">
           Is this a good weather activity?
         </label>
