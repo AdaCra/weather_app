@@ -31,19 +31,22 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+
   //console logging to check the accuracy
   console.log(weatherData);
 
   //handle activity - function then passed to Form, will render activities
+
   const handleAddActivity = (newActivity) => {
-    if (activities[0].name === undefined) {
+    if (activities[0].id === 0) {
       setActivities([newActivity]);
     } else {
       setActivities([...activities, newActivity]);
     }
   };
 
-  //referenced in List, will deleta activities
+
+  //referenced in List, will delete activities
   const handleDeleteActivity = (deletedActivityID) => {
     console.log(deletedActivityID);
     setActivities(
@@ -58,8 +61,10 @@ function App() {
       { name: "Go Read A Book", id: 1, isForGoodWeather: false },
     ],
   });
-
-  let filteredActivities = []; //honestly making an array cause it seems easier than putting a tenary in list.
+  
+  
+//honestly making an array cause it seems easier than putting a tenary in list.
+  let filteredActivities = []; 
   if (weatherData.isGoodWeather === true) {
     filteredActivities = activities.filter(
       (activity) => activity.isForGoodWeather === true
@@ -70,11 +75,19 @@ function App() {
     );
   }
 
+  const handleDeleteActivity = (deletedActivityID) => {
+    console.log(deletedActivityID);
+    setActivities(
+      activities.filter((activity) => activity.id !== deletedActivityID)
+    );
+  };
+
   return (
     <>
       <Header weatherEmoji={weatherData} weather={weatherData} />
       {console.log(activities)}
       <Form onAddActivity={handleAddActivity} />
+
       {
         <List
           activities={filteredActivities}
