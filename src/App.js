@@ -1,7 +1,7 @@
 import { Form } from "./components/form";
 import { useState, useEffect } from "react";
 import { List } from "./components/list";
-import { FetchWeather } from "./components/fetchWeather";
+import { FetchWeather, Header } from "./components/fetchWeather";
 import useLocalStorage from "use-local-storage-state";
 
 // this is the APP.JS
@@ -10,18 +10,14 @@ import useLocalStorage from "use-local-storage-state";
 //passes handleAddActivity to the form component
 
 function App() {
+  const [weatherEmoji, setWeatherEmoji] = useState({});
   const [weather, setWeather] = useState(true);
 
-  async function FetchWeather() {
-    const URL = "https://example-apis.vercel.app/api/weather/";
-    const response = await fetch(URL);
-    const weatherData = await response.json();
-    setWeather(weatherData.isGoodWeather);
-    console.log(weather);
-  }
-
   useEffect(() => {
-    FetchWeather();
+    const interval = setInterval(() => {
+      FetchWeather(weather, setWeather, weatherEmoji, setWeatherEmoji);
+    }, 36000);
+    return () => clearInterval(interval);
   });
 
   const [activities, setActivities] = useLocalStorage("activity-list", {
@@ -47,6 +43,7 @@ function App() {
   } else {
     goodWeather = activities.filter((activity) => !activity.isForGoodWeather);
   }
+  console.log(weatherEmoji);
 
   const handleDeleteActivity = (deletedActivityID) => {
     console.log(deletedActivityID);
@@ -57,15 +54,18 @@ function App() {
 
   return (
     <>
+      <Header weatherEmoji={weatherEmoji} weather={weather} />
       {console.log(activities)}
       <Form onAddActivity={handleAddActivity} />
+
       {
         <List
           activities={goodWeather}
-          weather={weather}
+          
           onDeleteActivity={handleDeleteActivity}
         />
       }
+
     </>
   );
 }
