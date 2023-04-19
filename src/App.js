@@ -83,19 +83,23 @@ function App() {
   };
 
   return (
-    <>
+
+    <main>
       <Header weatherEmoji={weatherData} weather={weatherData} />
+
       {console.log(activities)}
       <Form onAddActivity={handleAddActivity} />
 
       {
         <List
+
           activities={filteredActivities}
           weather={weatherData.isGoodWeather}
           onDeleteActivity={handleDeleteActivity}
-        />
+        /main>
       }
     </>
+
   );
 }
 

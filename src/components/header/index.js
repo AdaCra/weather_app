@@ -1,10 +1,11 @@
 export function Header(weatherData) {
   return (
-    <>
-      <h1>
-        {weatherData.temperature} degrees Celcius
-        {weatherData.condition}
-      </h1>
-    </>
+
+    <header>
+      <h1>{weatherData.temperature}°C</h1>
+      <h1>{weatherData.condition}</h1>
+      
+    </header>
+
   );
 }
