@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { List } from "./components/list";
 import { Header } from "./components/header";
 import useLocalStorage from "use-local-storage-state";
-
+import badWeatherImage from "./img/badWeather.png";
+import goodWeatherImage from "./img/goodWeather.png";
 // this is the APP.JS
 //needs: STATE for activities
 //function handleAddActivity which accepts a new activity object as parameter and adds this object to the activities state
@@ -14,7 +15,7 @@ function App() {
   const [weatherData, setweatherData] = useState({});
 
   async function fetchWeather(weatherData) {
-    const URL = "https://example-apis.vercel.app/api/weather/";
+    const URL = "https://example-apis.vercel.app/api/weather/rainforest";
     const response = await fetch(URL);
     weatherData = await response.json();
     setweatherData(weatherData);
@@ -30,7 +31,6 @@ function App() {
   }, []);
 
   //console logging to check the accuracy
-  console.log(weatherData);
 
   //handle activity - function then passed to Form, will render activities
 
@@ -69,14 +69,24 @@ function App() {
       (activity) => !activity.isForGoodWeather
     );
   }
+  let backgroundImage = weatherData.isGoodWeather
+    ? goodWeatherImage
+    : badWeatherImage;
 
   return (
     <main>
-      <Header weatherEmoji={weatherData} weather={weatherData} />
-
-      {console.log(activities)}
-      <Form onAddActivity={handleAddActivity} />
-
+      <section
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+        }}
+      >
+        <h1>Weather Activity App</h1>
+        <Header weather={weatherData} />
+        <Form onAddActivity={handleAddActivity} />
+      </section>
       <List
         activities={filteredActivities}
         weather={weatherData.isGoodWeather}

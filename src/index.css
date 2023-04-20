@@ -1,10 +1,74 @@
-@import './components/header/header.css';
-*{
+:root {
+    --primary-color: #88a5c1;
+    --secondary-color: rgba(221, 221, 221, 0.6);
+    --background-color: #333333;
+    --input-background: #fff;
+  }
+  
+  * {
+    box-sizing: border-box;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-}
-
-body {
+  }
+  body {
+    background-color: var(--background-color);
+  }
+  
+  main {
+    background-color: var(--primary-color);
     margin: 0 auto;
     width: 450px;
-}
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  h1 {
+    margin: 20px 30px 0px 30px;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--secondary-color);
+    border-radius: 20px;
+    box-shadow: 2px 2px 5px var(--secondary-color),
+      -2px -2px 5px var(--secondary-color);
+  }
+  
+  h2,
+  form {
+    position: relative;
+    z-index: 1;
+  }
+  
+  h3 {
+    margin-top: 10px;
+  }
+  
+  #currentWeather__container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 30px;
+  }
+  
+  .currentWeather__Emoji {
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    font-size: 50px;
+    padding: 5px;
+    margin-top: 20px;
+    width: 150px;
+    background-color: var(--secondary-color);
+    border-radius: 30px;
+    box-shadow: 2px 2px 5px var(--secondary-color),
+      -2px -2px 5px var(--secondary-color);
+  }
+  @import "./components/form/form.css";
+  @import "./components/list/list.css";
+  
