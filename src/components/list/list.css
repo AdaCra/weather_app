@@ -1,0 +1,82 @@
+#list__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#list__heading {
+  margin: 0 0 10px;
+  padding: 15px;
+  width: 100%;
+  text-align: center;
+
+  background-color: var(--input-background);
+}
+
+#list__ulHolder {
+  height: calc(100vh - 470px); /* set a fixed height */
+  overflow-y: auto; /* enable vertical scrolling */
+}
+
+#list__ulHolder::-webkit-scrollbar {
+  display: none;
+}
+.list__listItem {
+  height: 40px;
+  width: 400px;
+  margin: 15px 30px 0 30px;
+  padding-left: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  background-color: var(--secondary-color);
+  border-radius: 12px;
+}
+
+.list__listItem:hover {
+  animation: listHover 0.2s linear;
+  animation-fill-mode: forwards;
+}
+
+.list__deleteButton {
+  height: 40px;
+  width: 40px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+@keyframes listHover {
+  0% {
+    border: none;
+    background-color: var(--secondary-color);
+  }
+  20% {
+    border-top: 1px solid #fff;
+    background-color: var(--secondary-color);
+  }
+  40% {
+    border-right: 1px solid #fff;
+    background-color: var(--secondary-color);
+  }
+  60% {
+    border-bottom: 1px solid #fff;
+    background-color: var(--secondary-color);
+  }
+  80% {
+    border-left: 1px solid #fff;
+    background-color: var(--secondary-color);
+  }
+  90% {
+    border: 1px solid #fff;
+  }
+  95% {
+    border: 3px solid #fff;
+  }
+  100% {
+    border: 1px solid #fff;
+    background-color: rgba(221, 221, 221, 0.9);
+  }
+}

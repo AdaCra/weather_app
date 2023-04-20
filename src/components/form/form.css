@@ -1,0 +1,103 @@
+#form__activityForm {
+    margin: 20px 30px;
+    padding: 10px 30px;
+    background-color: var(--secondary-color);
+    border-radius: 30px;
+    box-shadow: 2px 2px 5px var(--secondary-color),
+      -2px -2px 5px var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .for__listItem {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.05em;
+  }
+  
+  label {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+  }
+  
+  #form__activityInput {
+    width: 230px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
+  }
+  
+  #form__weatherCheckbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
+  }
+  
+  #form__weatherCheckbox:checked:before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
+    background-color: #fff;
+    background-image: url("../../img/sun.png");
+    background-size: cover;
+    text-align: center;
+    line-height: 30px;
+  }
+  
+  #form__submitButton {
+    margin: 20px 0 10px;
+    height: 40px;
+    border: 1px solid #5f5f5f;
+    border-radius: 12px;
+    background-color: var(--input-background);
+    color: black;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+  }
+  
+  #form__submitButton:hover {
+    animation: gradient 0.5s linear;
+    animation-fill-mode: forwards;
+  }
+  
+  #form__submitButton:active {
+    background-color: transparent;
+    color: transparent;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-color: #ffffff;
+      color: #000;
+    }
+    25% {
+      background-color: #b2dded;
+      color: #404040;
+    }
+    50% {
+      background-color: #87ceeb;
+      color: #808080;
+    }
+    75% {
+      background-color: #6d96b5;
+      color: #bfbfbf;
+    }
+    100% {
+      background-color: #59748a;
+      color: #fff;
+    }
+  }
+  

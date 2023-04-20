@@ -1,11 +1,8 @@
 export function Header(weatherData) {
   return (
-
-    <header>
-      <h1>{weatherData.temperature}°C</h1>
-      <h1>{weatherData.condition}</h1>
-      
+    <header id="currentWeather__container">
+      <h2 className="currentWeather__Emoji">{weatherData.weather.condition}</h2>
+      <h2 className="currentWeather__Emoji">{weatherData.weather.temperature}°C</h2>
     </header>
-
   );
 }
