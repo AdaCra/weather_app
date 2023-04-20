@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import { List } from "./components/list";
 import { Header } from "./components/header";
 import useLocalStorage from "use-local-storage-state";
-import { handleAddActivity, handleDeleteActivity } from "./handleActivities";
-import { fetchWeather } from "./fetchingData";
 
 // this is the APP.JS
 //needs: STATE for activities
@@ -31,7 +29,6 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-
   //console logging to check the accuracy
   console.log(weatherData);
 
@@ -44,7 +41,6 @@ function App() {
       setActivities([...activities, newActivity]);
     }
   };
-
 
   //referenced in List, will delete activities
   const handleDeleteActivity = (deletedActivityID) => {
@@ -61,10 +57,9 @@ function App() {
       { name: "Go Read A Book", id: 1, isForGoodWeather: false },
     ],
   });
-  
-  
-//honestly making an array cause it seems easier than putting a tenary in list.
-  let filteredActivities = []; 
+
+  //honestly making an array cause it seems easier than putting a tenary in list.
+  let filteredActivities = [];
   if (weatherData.isGoodWeather === true) {
     filteredActivities = activities.filter(
       (activity) => activity.isForGoodWeather === true
@@ -75,31 +70,19 @@ function App() {
     );
   }
 
-  const handleDeleteActivity = (deletedActivityID) => {
-    console.log(deletedActivityID);
-    setActivities(
-      activities.filter((activity) => activity.id !== deletedActivityID)
-    );
-  };
-
   return (
-
     <main>
       <Header weatherEmoji={weatherData} weather={weatherData} />
 
       {console.log(activities)}
       <Form onAddActivity={handleAddActivity} />
 
-      {
-        <List
-
-          activities={filteredActivities}
-          weather={weatherData.isGoodWeather}
-          onDeleteActivity={handleDeleteActivity}
-        /main>
-      }
-    </>
-
+      <List
+        activities={filteredActivities}
+        weather={weatherData.isGoodWeather}
+        onDeleteActivity={handleDeleteActivity}
+      />
+    </main>
   );
 }
 
