@@ -35,7 +35,7 @@ export function Form({ onAddActivity }) {
             type="text"
             id="form__activityInput"
             name="name"
-            required
+            // required
             placeholder="Swim in the Sea"
           />
         </div>

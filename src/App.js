@@ -44,7 +44,6 @@ function App() {
 
   //referenced in List, will delete activities
   const handleDeleteActivity = (deletedActivityID) => {
-    console.log(deletedActivityID);
     setActivities(
       activities.filter((activity) => activity.id !== deletedActivityID)
     );
@@ -53,8 +52,16 @@ function App() {
   //setting default values of activities AND activities state
   const [activities, setActivities] = useLocalStorage("activity-list", {
     defaultValue: [
-      { name: "Go Read A Book", id: 0, isForGoodWeather: true },
-      { name: "Go Read A Book", id: 1, isForGoodWeather: false },
+      {
+        name: "The weather is always good for reading a book",
+        id: 0,
+        isForGoodWeather: true,
+      },
+      {
+        name: "The weather is always good for reading a book",
+        id: 1,
+        isForGoodWeather: false,
+      },
     ],
   });
 

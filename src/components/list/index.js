@@ -7,7 +7,6 @@ export const List = ({ activities, onDeleteActivity, weather }) => {
   let headlineText = weather
     ? "A beautiful day to outside and..."
     : "Don't let the gray get you down, let's...";
-  console.log(activities);
 
   return (
     <section id="list__container">
