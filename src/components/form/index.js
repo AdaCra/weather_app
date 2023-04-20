@@ -30,10 +30,10 @@ export function Form({ onAddActivity }) {
       <form id="form__activityForm" onSubmit={handleSubmit}>
         <h3>Add new Activity!</h3>
         <div className="for__listItem">
-          <label htmlFor="name">Add activity to list</label>
+          <label htmlFor="name">I want to </label>
           <input
             type="text"
-            id="Activity"
+            id="form__activityInput"
             name="name"
             required
             placeholder="Swim in the Sea"
