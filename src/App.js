@@ -3,9 +3,8 @@ import { useState, useEffect } from "react";
 import { List } from "./components/list";
 import { Header } from "./components/header";
 import useLocalStorage from "use-local-storage-state";
-import { handleAddActivity, handleDeleteActivity } from "./handleActivities";
-import { fetchWeather } from "./fetchingData";
-
+import badWeatherImage from "./img/badWeather.png";
+import goodWeatherImage from "./img/goodWeather.png";
 // this is the APP.JS
 //needs: STATE for activities
 //function handleAddActivity which accepts a new activity object as parameter and adds this object to the activities state
@@ -16,7 +15,7 @@ function App() {
   const [weatherData, setweatherData] = useState({});
 
   async function fetchWeather(weatherData) {
-    const URL = "https://example-apis.vercel.app/api/weather/";
+    const URL = "https://example-apis.vercel.app/api/weather/rainforest";
     const response = await fetch(URL);
     weatherData = await response.json();
     setweatherData(weatherData);
@@ -31,9 +30,7 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-
   //console logging to check the accuracy
-  console.log(weatherData);
 
   //handle activity - function then passed to Form, will render activities
 
@@ -45,10 +42,8 @@ function App() {
     }
   };
 
-
   //referenced in List, will delete activities
   const handleDeleteActivity = (deletedActivityID) => {
-    console.log(deletedActivityID);
     setActivities(
       activities.filter((activity) => activity.id !== deletedActivityID)
     );
@@ -57,14 +52,21 @@ function App() {
   //setting default values of activities AND activities state
   const [activities, setActivities] = useLocalStorage("activity-list", {
     defaultValue: [
-      { name: "Go Read A Book", id: 0, isForGoodWeather: true },
-      { name: "Go Read A Book", id: 1, isForGoodWeather: false },
+      {
+        name: "The weather is always good for reading a book",
+        id: 0,
+        isForGoodWeather: true,
+      },
+      {
+        name: "The weather is always good for reading a book",
+        id: 1,
+        isForGoodWeather: false,
+      },
     ],
   });
-  
-  
-//honestly making an array cause it seems easier than putting a tenary in list.
-  let filteredActivities = []; 
+
+  //honestly making an array cause it seems easier than putting a tenary in list.
+  let filteredActivities = [];
   if (weatherData.isGoodWeather === true) {
     filteredActivities = activities.filter(
       (activity) => activity.isForGoodWeather === true
@@ -74,32 +76,30 @@ function App() {
       (activity) => !activity.isForGoodWeather
     );
   }
-
-  const handleDeleteActivity = (deletedActivityID) => {
-    console.log(deletedActivityID);
-    setActivities(
-      activities.filter((activity) => activity.id !== deletedActivityID)
-    );
-  };
+  let backgroundImage = weatherData.isGoodWeather
+    ? goodWeatherImage
+    : badWeatherImage;
 
   return (
-
     <main>
-      <Header weatherEmoji={weatherData} weather={weatherData} />
-
-      {console.log(activities)}
-      <Form onAddActivity={handleAddActivity} />
-
-      {
-        <List
-
-          activities={filteredActivities}
-          weather={weatherData.isGoodWeather}
-          onDeleteActivity={handleDeleteActivity}
-        /main>
-      }
-    </>
-
+      <section
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+        }}
+      >
+        <h1>Weather Activity App</h1>
+        <Header weather={weatherData} />
+        <Form onAddActivity={handleAddActivity} />
+      </section>
+      <List
+        activities={filteredActivities}
+        weather={weatherData.isGoodWeather}
+        onDeleteActivity={handleDeleteActivity}
+      />
+    </main>
   );
 }
 
