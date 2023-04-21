@@ -15,7 +15,7 @@ function App() {
   const [weatherData, setweatherData] = useState({});
 
   async function fetchWeather(weatherData) {
-    const URL = "https://example-apis.vercel.app/api/weather/rainforest";
+    const URL = "https://example-apis.vercel.app/api/weather/";
     const response = await fetch(URL);
     weatherData = await response.json();
     setweatherData(weatherData);
